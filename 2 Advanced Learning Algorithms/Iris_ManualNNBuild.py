@@ -54,7 +54,7 @@ class NeuralNetwork:
         self.z1 = np.dot(X, self.W1) + self.b1
         self.a1 = sigmoid(self.z1)
         self.z2 = np.dot(self.a1, self.W2) + self.b2
-        self.y_hat = softmax(self.z2)
+        self.y_hat = softmax(self.z2) #returns softmax vector
         return self.y_hat
 
     def backward_pass(self, X, y, learning_rate):
@@ -107,8 +107,9 @@ model = NeuralNetwork(4, 10, 3)
 model.train(X_train, y_train_encoded, epochs = 1000, learning_rate = 0.05)
 
 # Make predictions on the test set
-y_pred = model.forward_pass(X_test)
-predicted_classes = np.argmax(y_pred, axis = 1)
+y_pred = model.forward_pass(X_test) #returns a m x n matrix (m = numebr samples, n = number of classes)
+predicted_classes = np.argmax(y_pred, axis = 1) #returns the column position of the max of probability in each row, since that's the predicted class
+#argmax axis = 0, means find max within each column
 true_classes = np.argmax(y_test_encoded, axis = 1)
 # Calculate accuracy on the test set
 accuracy = np.mean(predicted_classes == true_classes)

@@ -18,21 +18,21 @@ x = scaler.fit_transform(X)
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state = 42)
 
 # Convert target labels to one-hot encoding
-def one_hot_encoding(y):
-    n_classes = len(np.unique(y))
-    one_hot = np.zeros((len(y), n_classes))
-    one_hot[np.arange(len(y)), y] = 1 #smart, np.arange locations position x, the values of
+def one_hot_encoding(y_data):
+    n_classes = len(np.unique(y_data))
+    one_hot = np.zeros((len(y_data), n_classes))
+    one_hot[np.arange(len(y_data)), y_data] = 1 #smart, np.arange locations position x, the values of
     return one_hot
 
 y_train_encoded = one_hot_encoding(y_train)
 y_test_encoded = one_hot_encoding(y_test)
 
 # Define the neurla network
-def sigmoid(x):
-    return 1 / (1 + np.exp(-x))
+def sigmoid(x_data):
+    return 1 / (1 + np.exp(-x_data))
 
-def softmax(x):
-    exp_x = np.exp(x)
+def softmax(x_data):
+    exp_x = np.exp(x_data)
     return exp_x / np.sum(exp_x, axis = 1, keepdims = True)
 
 class NeuralNetwork:
@@ -43,12 +43,12 @@ class NeuralNetwork:
         self.b2 = np.zeros((1, output_size))
         self.accuracy_history = []
 
-    def calculate_accuracy(self, X, y):
-        predictions = self.forward_pass(X)
-        predicted_classes = np.argmax(predictions, axis = 1)
-        true_classes = np.argmax(y, axis = 1)
-        accuracy = np.mean(predicted_classes == true_classes)
-        return accuracy
+    def calculate_accuracy(self, X_data, y_data):
+        predictions = self.forward_pass(X_data)
+        predicted_classes_accuracy = np.argmax(predictions, axis = 1)
+        true_classes_accuracy = np.argmax(y_data, axis = 1)
+        accuracy_output = np.mean(predicted_classes_accuracy == true_classes_accuracy)
+        return accuracy_output
 
     def forward_pass(self, X):
         self.z1 = np.dot(X, self.W1) + self.b1
@@ -63,7 +63,7 @@ class NeuralNetwork:
         # Calculate gradients using stored values
         delta2 = self.y_hat - y
         dW2 = np.dot(self.a1.T, delta2) / batch_size
-        db2 = np.sum(delta2, axis=0, keepdims = True) / batch_size
+        db2 = np.sum(delta2, axis=0, keepdims = True) / batch_size # returns a (1xn) matrix
 
         # using stored self.a1
         delta1 = np.dot(delta2, self.W2.T) * self.a1 * (1-self.a1)

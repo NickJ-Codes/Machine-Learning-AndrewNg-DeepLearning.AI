@@ -24,7 +24,7 @@ def plt_act_trio():
     ax[0].axvline(0, lw=0.3, c="black")
     ax[0].axhline(0, lw=0.3, c="black")
     ax[0].set_title("Linear")
-    ax[1].plot(X,tf.keras.activations.sigmoid(X))
+    ax[1].plot(X, tf.keras.activations.sigmoid(X))
     ax[1].axvline(0, lw=0.3, c="black")
     ax[1].axhline(0, lw=0.3, c="black")
     ax[1].set_title("Sigmoid")

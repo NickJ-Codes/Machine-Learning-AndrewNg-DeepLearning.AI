@@ -137,7 +137,7 @@ def plt_output_unit(W,b):
         for j in range(steps):
             for k in range(steps):
                 v = np.array([x[i,j,k],y[i,j,k],z[i,j,k]])
-                d[i,j,k] = tf.keras.activations.sigmoid(np.dot(v,W[:,0])+b).numpy()
+                d[i,j,k] = tf.keras.activations.sigmoid(np.dot(v, W[:, 0]) + b).numpy()
     pcm = ax.scatter(x, y, z, c=d, cmap=cmap, alpha = 1 )
     ax.set_xlabel("unit 0"); 
     ax.set_ylabel("unit 1"); 

@@ -5,7 +5,7 @@ import tensorflow as tf
 import numpy as np
 from sklearn.datasets import load_iris
 from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import StandardScaler, OneHotEncoder
+from sklearn.preprocessing import OneHotEncoder
 import os
 import matplotlib
 # Try Wayland first, fallback to Qt5Agg
